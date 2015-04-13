@@ -1,0 +1,22 @@
+Applicationcontext reads the spring xml and initilizes and creates springbean 
+--This happens when application context is initilized 
+and when get bean happens, the applicationcontext hands over the created springbean..
+
+Basic Basic Spring Scope
+========================
+1. Singleton - Only once per spring container (Only one instance per spring container..) - DEFAULT
+-It initializes all the bean during the initilization of the context itself
+
+2. Prototype - New bean created with every request or reference (New obj are created every time during getBean or even during ref)
+- It initializes during getBean, because it creates new instances everytime
+
+3.Web-aware - Scopes
+A. Request - A new bean is created per servlet request
+B. Session - A new bean per session, as long as one user is accessing per session and if its a new user and new session, then new bean is created
+C. Global Session - New bean per Global HTTP session (Portlet Context)
+
+
+Bean Inheritence means Definition inheritence.. (Tutorial 13)
+The common values used with at multiple beans, you can use Bean Inheriteance and we can inherit from the parent bean
+
+Lifecycle Callback Methods (Tutorial 14)

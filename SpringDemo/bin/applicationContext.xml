@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:amq="http://activemq.apache.org/schema/core"
+  xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+  xsi:schemaLocation="
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+  http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+  http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd
+  http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd">
+  
+	<!--1  NO GETTERS & SETTERS are used .. -->
+<!-- 	<bean id="triangle" class="org.naveen.springTutorial.Traingle"/> -->
+ 
+<!--  	<bean id="triangle" class="org.naveen.springTutorial.Traingle"> -->
+	 		<!-- 2 Value is set to the setter --> 
+<!-- 		<property name="type" value="Equilateral"/> -->
+
+	 		<!-- 3 Definiing constructor by type  --> 
+<!-- 		<constructor-arg type="java.lang.String" value="Equilateral"/> -->
+<!--     	<constructor-arg type="int" value="100"/> -->
+    
+	 		<!-- 4 Definiing constructor by index -->
+<!-- 		<constructor-arg index="0" value="Equilateral"/> -->
+<!--     	<constructor-arg index="1" value="100"/> -->
+
+<!--  	</bean> -->
+ 
+<!--   	<bean id="triangle" class="org.naveen.springTutorial.Traingle"> -->
+			<!--5 set Object By Refe--> 
+<!--     	<property name="pointA" ref="zeroPoint"/> -->
+<!--     	<property name="pointB" ref="pointTwo"/> -->
+	 		<!-- 6 Creating an Inner Bean, as PointC is not used anywhere else other than Triangle, No performance imprv due to inner bean --> 
+<!--     	<property name="pointC"> -->
+<!--     	    <bean class="org.naveen.springTutorial.Point"> -->
+<!-- 		        <property name="x" value="0"/> -->
+<!-- 		        <property name="y" value="20"/> -->
+<!-- 		    </bean> -->
+<!--     	</property> -->
+<!--  	</bean> -->
+ 
+ 	<!-- Using List -->
+ 	<bean id="triangle" class="org.naveen.springTutorial.Traingle">
+ 	    <property name="points">
+ 	        <list>
+ 	            <ref bean="zeroPoint"/>
+ 	            <ref bean="pointTwo"/>
+ 	        </list>
+ 	    </property>
+ 	</bean>
+ 
+		<!-- Autowiring by constructor or byName or byType -->
+<!--  	<bean id="triangle" class="org.naveen.springTutorial.Traingle" autowire="constructor"> -->
+<!--  	</bean> -->
+ 	
+ 		<!-- Defining Scope -->
+<!--  	<bean id="triangle" class="org.naveen.springTutorial.Traingle" scope="prototype"> -->
+<!--  	</bean> -->
+
+    <bean id="zeroPoint" class="org.naveen.springTutorial.Point">
+        <property name="x" value="0"/>
+        <property name="y" value="0"/>
+    </bean>
+    <bean id="pointTwo" class="org.naveen.springTutorial.Point">
+        <property name="x" value="-20"/>
+        <property name="y" value="0"/>
+    </bean>
+    <bean id="pointThree" class="org.naveen.springTutorial.Point">
+        <property name="x" value="0"/>
+        <property name="y" value="-20"/>
+    </bean>
+    
+<!--     Triangle1 Example, using BeanNameAware and ApplicationContextAware -->
+    <bean id="beanNameTriangle1" class="org.naveen.springTutorial.Traingle1">
+ 	</bean>
+ 	
+	<!-- Bean Inheritance -->
+    <bean id="parentTriangle" class="org.naveen.springTutorial.Traingle1">
+        <property name="pointA" ref="zeroPoint"/>
+ 	</bean>
+ 	
+    <bean id="childTraiangle1" class="org.naveen.springTutorial.Traingle1" parent="parentTriangle">
+        <property name="pointB" ref="pointTwo"/>
+        <property name="pointC" ref="pointThree"/>
+ 	</bean>
+ 	
+    <bean id="childTraiangle2" class="org.naveen.springTutorial.Traingle1" parent="childTraiangle1">
+        <property name="pointC" ref="pointThree"/>
+ 	</bean>
+</beans>    
